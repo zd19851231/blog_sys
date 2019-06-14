@@ -3,3 +3,19 @@
 ################################################################################
 
 /.vs
+/BlogSystem/.vs/BlogSystem
+/BlogSystem/BlogSystem.BLL/bin/Debug
+/BlogSystem/BlogSystem.BLL/obj
+/BlogSystem/BlogSystem.DAL/bin/Debug
+/BlogSystem/BlogSystem.DAL/obj
+/BlogSystem/BlogSystem.Dto/bin/Debug
+/BlogSystem/BlogSystem.Dto/obj
+/BlogSystem/BlogSystem.IBLL/bin/Debug
+/BlogSystem/BlogSystem.IBLL/obj
+/BlogSystem/BlogSystem.IDAL/bin/Debug
+/BlogSystem/BlogSystem.IDAL/obj
+/BlogSystem/BlogSystem.Models/bin/Debug
+/BlogSystem/BlogSystem.Models/obj
+/BlogSystem/BlogSystem.MVCSite/bin
+/BlogSystem/BlogSystem.MVCSite/obj
+/BlogSystem/packages
