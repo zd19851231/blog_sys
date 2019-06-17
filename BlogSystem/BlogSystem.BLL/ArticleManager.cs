@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,12 +59,46 @@ namespace BlogSystem.BLL
 
         public async Task<List<BlogCategoryDto>> GetAllCategories(Guid userId)
         {
-            throw new NotImplementedException();
+            using (IDAL.IBlogCategory categoryService = new BlogCategoryService())
+            {
+                return await categoryService.GetAllAsync().Where(m=>m.UserId == userId).Select(m=>new Dto.BlogCategoryDto()
+                {
+                    Id = m.Id,
+                    CategoryName = m.CategoryName
+                }).ToListAsync();
+            }
         }
 
         public async Task<List<ArticleDto>> GetAllArticlesByUserId(Guid userId)
         {
-            throw new NotImplementedException();
+            using (var articleSvc = new ArticleService())
+            {
+                 var list = await  articleSvc.GetAllAsync().Include(m=>m.User) .Where(m => m.UserId == userId)
+                  .Select(m=>new Dto.ArticleDto()
+                  {
+                      Title = m.Title,
+                      BadCount = m.BadCount,
+                      GoodCount = m.GoodCount, 
+                      Email = m.User.Email,
+                      Content = m.Content,
+                      CreateTime = m.CreateTime,
+                      Id = m.Id,
+                      ImagePath = m.User.ImagePath
+                  })
+                  .ToListAsync();
+                 using (IArticleToCategoryService articleToCategoryService = new ArticleToCategoryService() )
+                 {
+                     foreach (var articleDto in list)
+                     {
+                         var cates = await articleToCategoryService.GetAllAsync().Include(m=>m.BlogCategory).Where(m => m.ArticleId == articleDto.Id).ToListAsync();
+                         articleDto.CategoryIds = cates.Select(m => m.BlogCategoryId).ToArray();
+                         articleDto.CategoryNames = cates.Select(m => m.BlogCategory.CategoryName).ToArray();
+                     }
+
+                     return list;
+                 }
+
+            }
         }
 
         public async Task<List<ArticleDto>> GetAllArticlesByEmail(string email)

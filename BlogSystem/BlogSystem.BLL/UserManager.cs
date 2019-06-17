@@ -27,11 +27,24 @@ namespace BlogSystem.BLL
             }
         }
 
-        public async Task<bool> Login(string email, string password)
+        public bool Login(string email, string password,out Guid userid)
         {
             using (IDAL.IUserService userSvc = new DAL.UserService())
             {
-                return await userSvc.GetAllAsync().AnyAsync(m => m.Email == email && m.Password == password);
+                var user =    userSvc.GetAllAsync().FirstOrDefaultAsync(m => m.Email == email && m.Password == password);
+                user.Wait();
+                var data =  user.Result;
+                if (data == null)
+                {
+                    userid = new Guid();
+                    return false;
+                }
+                else
+                { 
+                    userid = data.Id;
+                    return true;
+                }
+                
             }
         }
 

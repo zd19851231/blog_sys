@@ -63,7 +63,8 @@ namespace BlogSystem.MVCSite.Controllers
             if (ModelState.IsValid)
             {
                 IBLL.IUserManager userManager = new UserManager();
-                if (await userManager.Login(model.Email, model.LoginPwd))
+                Guid userid;
+                if (  userManager.Login(model.Email, model.LoginPwd,out userid))
                 {
                     //跳转
                     //判断是用session还是用cookie
@@ -74,10 +75,16 @@ namespace BlogSystem.MVCSite.Controllers
                             Value = model.Email,
                             Expires = DateTime.Now.AddDays(7)
                         });
+                        Response.Cookies.Add(new HttpCookie("userId")
+                        {
+                            Value = userid.ToString(),
+                            Expires = DateTime.Now.AddDays(7)
+                        });
                     }
                     else
                     {
                         Session["loginName"] = model.Email;
+                        Session["userid"] = userid;
                     }
 
                     return RedirectToAction(nameof(Index));

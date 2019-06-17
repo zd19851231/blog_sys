@@ -8,7 +8,7 @@ using BlogSystem.Models;
 
 namespace BlogSystem.DAL
 {
-    public class ArticleToCategoryService:BaseService<Models.ArticleToCategory>,IArticleToCategory
+    public class ArticleToCategoryService:BaseService<Models.ArticleToCategory>,IArticleToCategoryService
     {
         public ArticleToCategoryService() : base(new BlogContext())
         {
