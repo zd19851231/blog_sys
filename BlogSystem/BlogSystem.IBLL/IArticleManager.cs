@@ -14,7 +14,10 @@ namespace BlogSystem.IBLL
 
         Task<List<Dto.BlogCategoryDto>> GetAllCategories(Guid userId);
 
-        Task<List<Dto.ArticleDto>> GetAllArticlesByUserId(Guid userId);
+        Task<List<Dto.ArticleDto>> GetAllArticlesByUserId(Guid userId,int pageIndex,int pageSize);
+
+        Task<int> GetDataCount(Guid userId);
+       
 
         Task<List<Dto.ArticleDto>> GetAllArticlesByEmail(string email);
 
@@ -27,6 +30,10 @@ namespace BlogSystem.IBLL
         Task RemoveArticle(Guid articleId);
 
         Task EditArticle(Guid articleId, string title, string content, Guid[] categoryIds);
+
+        Task<bool> ExistsArticle(Guid articleId);
+        Task<Dto.ArticleDto> GetOneArticleById(Guid articleId);
+
 
 
     }

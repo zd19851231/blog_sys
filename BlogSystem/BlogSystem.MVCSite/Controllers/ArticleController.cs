@@ -62,11 +62,26 @@ namespace BlogSystem.MVCSite.Controllers
             return View( );
         }
         [HttpGet]
-        public async Task<ActionResult> AritcleList()
+        public async Task<ActionResult> AritcleList(int pageIndex = 0,int pageSize = 1)
         {
+
+            //需要给页面前端 总页码数，当前页码，可显示的总页码数量
+           var articleMgr =  new ArticleManager();
             var userid = Guid.Parse(Session["userid"].ToString());
-            var articles = await new ArticleManager().GetAllArticlesByUserId(userid);
+            var articles = await articleMgr.GetAllArticlesByUserId(userid,pageIndex,pageSize);
+            var dataCount =  await articleMgr.GetDataCount(userid) ;
+            ViewBag.PageCount = dataCount % pageSize == 0? dataCount/pageSize: dataCount/pageSize+1;
+            ViewBag.PageIndex = pageIndex;
             return View(articles);
+        }
+
+        public async Task<ActionResult> ArticleDetails(Guid? id)
+        {
+            var articleMgr = new ArticleManager();
+            if (id == null || !await articleMgr.ExistsArticle(id.Value))
+                return RedirectToAction(nameof(AritcleList));
+
+            return View( await articleMgr.GetOneArticleById(id.Value));
         }
     }
 }
