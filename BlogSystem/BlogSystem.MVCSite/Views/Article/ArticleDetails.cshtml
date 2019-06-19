@@ -23,7 +23,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Content)
+            @Html.Raw(Model.Content)  
         </dd>
 
         <dt>
@@ -81,6 +81,10 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "AritcleList")
 </p>
+<h3>
+    @Url.Action("CreateArticle","Article")
+</h3>
+
 
 @section headers{
     <style>

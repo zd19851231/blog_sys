@@ -108,6 +108,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Webdiyer.MvcPager, Version=3.0.2015.802, Culture=neutral, PublicKeyToken=f6872c5a09aed72c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Webdiyer.MvcPager.3.0.1.1\lib\Webdiyer.MvcPager.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -144,13 +147,47 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\index.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap-wysiwyg.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-apollo.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-basic.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-clj.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-css.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-dart.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-erlang.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-go.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-hs.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-lisp.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-llvm.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-lua.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-matlab.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-ml.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-mumps.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-n.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-pascal.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-proto.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-r.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-rd.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-scala.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-sql.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-tcl.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-tex.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-vb.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-vhdl.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-wiki.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-xq.js" />
+    <Content Include="Scripts\external\google-code-prettify\lang-yaml.js" />
+    <Content Include="Scripts\external\google-code-prettify\prettify.css" />
+    <Content Include="Scripts\external\google-code-prettify\prettify.js" />
+    <Content Include="Scripts\external\google-code-prettify\run_prettify.js" />
+    <Content Include="Scripts\external\jquery.hotkeys.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -182,6 +219,7 @@
     <Content Include="Views\Article\CreateArticle.cshtml" />
     <Content Include="Views\Article\AritcleList.cshtml" />
     <Content Include="Views\Article\ArticleDetails.cshtml" />
+    <Content Include="Views\Article\AritcleList2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

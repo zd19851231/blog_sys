@@ -1,0 +1,84 @@
+﻿
+@using Webdiyer.WebControls.Mvc
+@model Webdiyer.WebControls.Mvc.PagedList<BlogSystem.Dto.ArticleDto>
+
+@{
+    ViewBag.Title = "AritcleList";
+}
+
+<h2>AritcleList</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateArticle")
+</p>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GoodCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BadCount)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GoodCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BadCount)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
+                @Html.ActionLink("Details", "ArticleDetails", new {id = item.Id}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.Id})
+            </td>
+        </tr>
+    }
+    </tbody >
+    <tfoot  >
+    <tr>
+        <td colspan="6">
+            <nav>
+                @Html.Pager(Model, new PagerOptions { PageIndexParameterName = "pageIndex", ContainerTagName = "ul", CssClass = "pagination",  CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>", DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>", PagerItemTemplate = "<li>{0}</li>", Id = "bootstrappager" })
+            </nav>
+
+        </td>
+    </tr>
+    </tfoot>
+</table>
+
+@section headers{
+    <style>
+         .pagination {
+             display: flex;
+             flex-direction: row;
+             justify-content: center;
+             margin: 0;
+             padding: 3px
+         }
+    </style>
+}

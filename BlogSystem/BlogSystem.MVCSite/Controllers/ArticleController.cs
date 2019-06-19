@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using BlogSystem.BLL;
 using BlogSystem.MVCSite.Filters;
 using BlogSystem.MVCSite.Models.ArticleViewModels;
+using Webdiyer.WebControls.Mvc;
 
 namespace BlogSystem.MVCSite.Controllers
 {
@@ -50,6 +51,7 @@ namespace BlogSystem.MVCSite.Controllers
             return View();
         }
         [HttpPost] 
+        [ValidateInput(false)]
         public async Task<ActionResult> CreateArticle(Models.ArticleViewModels.CreateArticleViewModel model)
         {
             if (ModelState.IsValid)
@@ -62,17 +64,31 @@ namespace BlogSystem.MVCSite.Controllers
             return View( );
         }
         [HttpGet]
-        public async Task<ActionResult> AritcleList(int pageIndex = 0,int pageSize = 1)
+        public async Task<ActionResult> AritcleList(int pageIndex = 0, int pageSize = 1)
         {
 
             //需要给页面前端 总页码数，当前页码，可显示的总页码数量
-           var articleMgr =  new ArticleManager();
+            var articleMgr = new ArticleManager();
             var userid = Guid.Parse(Session["userid"].ToString());
-            var articles = await articleMgr.GetAllArticlesByUserId(userid,pageIndex,pageSize);
-            var dataCount =  await articleMgr.GetDataCount(userid) ;
-            ViewBag.PageCount = dataCount % pageSize == 0? dataCount/pageSize: dataCount/pageSize+1;
+            var articles = await articleMgr.GetAllArticlesByUserId(userid, pageIndex, pageSize);
+            var dataCount = await articleMgr.GetDataCount(userid);
+            ViewBag.PageCount = dataCount % pageSize == 0 ? dataCount / pageSize : dataCount / pageSize + 1;
             ViewBag.PageIndex = pageIndex;
             return View(articles);
+        }
+        [HttpGet]
+        public async Task<ActionResult> AritcleList2(int pageIndex = 1, int pageSize =7)
+        {
+
+            //需要给页面前端 总页码数，当前页码，可显示的总页码数量
+            var articleMgr = new ArticleManager();
+            var userid = Guid.Parse(Session["userid"].ToString());
+            //当前用户 第n页数据
+            var articles = await articleMgr.GetAllArticlesByUserId(userid, pageIndex-1, pageSize);
+            //获取当前用户文章总数
+            var dataCount = await articleMgr.GetDataCount(userid);
+            
+            return View(new PagedList<Dto.ArticleDto>(articles, pageIndex, pageSize, dataCount));
         }
 
         public async Task<ActionResult> ArticleDetails(Guid? id)
