@@ -78,15 +78,67 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    <button onclick="btnGoodHandler(this)">点赞</button>
+    <button onclick="btnBadHandler(this)">反对</button>
+    @Html.ActionLink("Edit", "Edit", new {id = Model.Id}) |
     @Html.ActionLink("Back to List", "AritcleList")
+    <input type="text" name="txtComment" id="txtComment" value="" />
+    <button onclick="addComment()">添加评论</button>
 </p>
+
+<ul>
+    @foreach (var comment in ViewBag.Comments)
+    {
+        <li>
+            <span>@comment.Content</span>
+            <br/>
+            <span>@comment.Email @comment.CreateTime</span>
+        </li>
+    }
+    
+</ul>
+
 <h3>
     @Url.Action("CreateArticle","Article")
 </h3>
 
 
 @section headers{
+    <script>
+        var articleId = '@Model.Id';
+        function btnGoodHandler(btn) {
+            $.ajax({
+                url: "/Article/GoodCount/"+articleId,
+                type: "post"
+            }).done(() => {
+                alert("点赞成功"); 
+                btn.disabled = true;
+            });
+        }
+        function btnBadHandler(btn) {
+            $.ajax({
+                url: "/Article/BadCount/"+articleId,
+                type: "post"
+            }).done(() => {
+                alert("反对成功");
+                btn.disabled = true;
+            });
+        }
+
+        function addComment() {
+            $.ajax({
+                url: "/Article/AddComment",
+                type: "post",
+                data: {
+                    Id: '@Model.Id',
+                    Content:document.getElementById("txtComment").value 
+                }
+            }).done(() => {
+                alert("添加评论成功");
+                location.reload();
+            });
+        }
+    </script>
     <style>
         .categoryIds {
             float: left;

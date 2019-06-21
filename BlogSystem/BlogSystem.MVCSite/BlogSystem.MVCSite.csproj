@@ -138,6 +138,8 @@
     <Compile Include="Models\ArticleViewModels\ArticleDetailsViewModel.cs" />
     <Compile Include="Models\ArticleViewModels\CreateArticleViewModel.cs" />
     <Compile Include="Models\ArticleViewModels\CreateCategoryViewModel.cs" />
+    <Compile Include="Models\ArticleViewModels\CreateCommentViewModel.cs" />
+    <Compile Include="Models\ArticleViewModels\EditArticleViewModel.cs" />
     <Compile Include="Models\UserViewModels\LoginViewModel.cs" />
     <Compile Include="Models\UserViewModels\RegisterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -220,6 +222,7 @@
     <Content Include="Views\Article\AritcleList.cshtml" />
     <Content Include="Views\Article\ArticleDetails.cshtml" />
     <Content Include="Views\Article\AritcleList2.cshtml" />
+    <Content Include="Views\Article\EditArticle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

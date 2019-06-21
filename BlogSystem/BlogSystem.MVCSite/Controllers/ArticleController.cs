@@ -97,7 +97,66 @@ namespace BlogSystem.MVCSite.Controllers
             if (id == null || !await articleMgr.ExistsArticle(id.Value))
                 return RedirectToAction(nameof(AritcleList));
 
+
+            ViewBag.Comments = await articleMgr.GetCommentsByArticleId(id.Value);
+
+
             return View( await articleMgr.GetOneArticleById(id.Value));
+        }
+
+        [HttpGet] 
+        public async Task<ActionResult> EditArticle(Guid id)
+        {
+            IBLL.IArticleManager articleManager = new ArticleManager();
+            var data = await articleManager.GetOneArticleById(id);
+            var userid = Guid.Parse(Session["userid"].ToString());
+            ViewBag.CategoryIds = await new ArticleManager().GetAllCategories(userid);
+            return View(new  EditArticleViewModel()
+            {
+                Title = data.Title,
+                Content = data.Content,
+                CategoryIds = data.CategoryIds,
+                Id = data.Id
+            });
+        }
+        [HttpPost]
+        public async Task<ActionResult> EditArticle(Models.ArticleViewModels.EditArticleViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                IBLL.IArticleManager articleManager = new ArticleManager();
+                await articleManager.EditArticle(model.Id, model.Title, model.Content, model.CategoryIds);
+                return RedirectToAction("AritcleList2");
+            }
+            else
+            {
+                var userid = Guid.Parse(Session["userid"].ToString());
+                ViewBag.CategoryIds = await new ArticleManager().GetAllCategories(userid);
+                return View(model);
+            }
+          
+        }
+        [HttpPost]
+        public async Task<ActionResult> GoodCount(Guid id)
+        {
+            IBLL.IArticleManager articleManager = new ArticleManager();
+            await articleManager.GoodCountAdd(id);
+            return Json(new { result = "ok" });
+        }
+        [HttpPost]
+        public async Task<ActionResult> BadCount(Guid id)
+        {
+            IBLL.IArticleManager articleManager = new ArticleManager();
+            await articleManager.BadCountAdd(id);
+            return Json(new { result = "ok" });
+        }
+        [HttpPost]
+        public async Task<ActionResult> AddComment(Models.ArticleViewModels.CreateCommentViewModel model)
+        {
+            var userid = Guid.Parse(Session["userid"].ToString());
+            IBLL.IArticleManager articleManager = new ArticleManager();
+            await articleManager.CreateComment(userid, model.Id, model.Content);
+            return Json(new {result = "ok"});
         }
     }
 }
